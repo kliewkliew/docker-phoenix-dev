@@ -24,8 +24,8 @@ RUN mv $ZOO_HOME/conf/zoo_sample.cfg $ZOO_HOME/conf/zoo.cfg
 RUN mkdir /tmp/zookeeper
 
 # HBase
-ARG HBASE_MAJORMINOR=1.2
-ARG HBASE_PATCH=2
+ARG HBASE_MAJORMINOR=1.1
+ARG HBASE_PATCH=5
 RUN curl -s $APACHE_MIRROR/hbase/$HBASE_MAJORMINOR.$HBASE_PATCH/hbase-$HBASE_MAJORMINOR.$HBASE_PATCH-bin.tar.gz | tar -xz -C /usr/local/
 RUN cd /usr/local && ln -s ./hbase-$HBASE_MAJORMINOR.$HBASE_PATCH hbase
 ENV HBASE_HOME /usr/local/hbase
