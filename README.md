@@ -13,7 +13,7 @@ docker build -t kliew/phoenix-dev --build-arg REPO=https://github.com/kliewkliew
 
 To build a specific revision
 ```
-docker build -t kliew/phoenix-dev --build-arg REPO=https://github.com/kliewkliew/phoenix --build-arg REVISION=fb230f9df5b7c990c80326671d9975a6f05e1600 .
+docker build -t kliew/phoenix-dev --build-arg REPO=https://github.com/kliewkliew/phoenix --build-arg REVISION=PHOENIX-2641 .
 ```
 
 You may have to build with `--no-cache`  but in most cases you can just specify the revision to use the cache up until the `git clone ~` step, after which the build process will do `git pull` and checkout the specified revision.
