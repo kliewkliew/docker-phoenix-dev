@@ -31,3 +31,6 @@ docker run -it -p $HOST_DEBUG_PORT:9999 kliew/hive-dev
 Add `-p 8765:8765` if you want access from an external thin client.
 
 In Eclipse, open Debug Configurations, create Remote Java Application, Host: localhost, Port: $HOST_DEBUG_PORT.
+
+# Credits
+Based on https://github.com/sequenceiq/docker-phoenix

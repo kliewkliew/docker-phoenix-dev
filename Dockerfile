@@ -25,7 +25,7 @@ RUN mkdir /tmp/zookeeper
 
 # HBase
 ARG HBASE_MAJORMINOR=1.1
-ARG HBASE_PATCH=5
+ARG HBASE_PATCH=6
 RUN curl -s $APACHE_MIRROR/hbase/$HBASE_MAJORMINOR.$HBASE_PATCH/hbase-$HBASE_MAJORMINOR.$HBASE_PATCH-bin.tar.gz | tar -xz -C /usr/local/
 RUN cd /usr/local && ln -s ./hbase-$HBASE_MAJORMINOR.$HBASE_PATCH hbase
 ENV HBASE_HOME /usr/local/hbase
@@ -50,6 +50,7 @@ WORKDIR /
 
 # HBase and Phoenix configuration files
 ADD hbase-site.xml $HBASE_HOME/conf/hbase-site.xml
+ENV JAVA_HOME /usr/java/default
 
 # Zookeeper port
 EXPOSE 2181
@@ -59,7 +60,15 @@ EXPOSE 8765
 
 ENV PHOENIX_QUERYSERVER_OPTS "-Xdebug -agentlib:jdwp=transport=dt_socket,address=9999,server=y,suspend=n"
 
-CMD $HADOOP_HDFS_HOME/sbin/start-dfs.sh && \
-    start-hbase.sh && \
-    queryserver.py start
+#CMD $HADOOP_HDFS_HOME/sbin/start-dfs.sh && \
+#    zkServer.sh start && \
+#    start-hbase.sh && \
+#    queryserver.py start
+
+# bootstrap-phoenix
+ADD bootstrap-phoenix.sh /etc/bootstrap-phoenix.sh
+RUN chown root:root /etc/bootstrap-phoenix.sh
+RUN chmod 700 /etc/bootstrap-phoenix.sh
+
+CMD ["/etc/bootstrap-phoenix.sh", "-qs"]
 
